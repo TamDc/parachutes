@@ -84,7 +84,7 @@ const styles = {
   brand: {
     fontFamily: "Montserrat Alternates",
     fontWeight: "bold",
-    fontSize: "18px",
+    fontSize: ["14px", "16px", "18px"],
     lineHeight: "20px",
     color: "#000",
     textAlign: "center",

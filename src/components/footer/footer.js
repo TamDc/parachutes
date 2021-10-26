@@ -43,7 +43,7 @@ const styles = {
   footer: {
     backgroundColor: "#18191F",
     "& > div > div": {
-      width: "33.3%",
+      width: ["100%", "33.3%", "33.3%"],
     },
     brand: {
       fontFamily: "Montserrat Alternates",
