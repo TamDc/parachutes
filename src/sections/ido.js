@@ -60,7 +60,7 @@ export default function IDO() {
 
           <Flex
             sx={{
-              marginTop: 100,
+              marginTop: 70,
               flexDirection: ["column", "row"],
             }}
           >
@@ -111,7 +111,7 @@ export default function IDO() {
           </Flex>
 
           <Flex
-            sx={{ marginTop: [50, 50, 100], flexDirection: ["column", "row"] }}
+            sx={{ marginTop: [50, 50, 70], flexDirection: ["column", "row"] }}
           >
             <Box sx={styles.pricing}>
               <span>Percentage of tokens hedged</span>
@@ -244,7 +244,7 @@ const styles = {
     },
   },
   table: {
-    marginBottom: ["50px", "100px", "200px"],
+    marginBottom: ["50px", "70px", "100px"],
     flex: 3,
     "& table": {
       border: "1px solid #F1E4FF",

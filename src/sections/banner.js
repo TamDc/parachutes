@@ -2,7 +2,6 @@
 import { jsx } from "theme-ui";
 import { Container, Flex, Box, Heading, Text, Image, Button } from "theme-ui";
 import React, { useState } from "react";
-import { Link } from "components/link";
 import { FaPlayCircle } from "react-icons/fa";
 import BannerBG from "assets/bg_egg.svg";
 import ParachutBlue from "assets/parachut_blue.svg";
@@ -13,7 +12,7 @@ import ParachutGreen from "assets/parachut_green.svg";
 import client1 from "assets/sponsor/paypal.svg";
 import client2 from "assets/sponsor/google.svg";
 import client3 from "assets/sponsor/dropbox.svg";
-
+import Link from "next/link";
 const data = [
   {
     id: 1,
@@ -53,9 +52,11 @@ export default function Banner() {
             downside. A better way to protect your stake is here.
           </Text>
           <Flex>
-            <Button variant="primary" aria-label="Get Started">
-              Connect Wallet
-            </Button>
+            <Link href="/ido">
+              <Button variant="primary" aria-label="Get Started">
+                Join IDO
+              </Button>
+            </Link>
             <>
               <Button
                 variant="textButton"

@@ -1,22 +1,24 @@
 /** @jsx jsx */
 import { jsx, Container, Text, Button } from "theme-ui";
 import { keyframes } from "@emotion/core";
-import { Link } from "react-scroll";
 import Logo from "components/logo";
 import LogoDark from "assets/logo-dark.svg";
 import LogoWhite from "assets/logo.svg";
 import { DrawerProvider } from "../../contexts/drawer/drawer.provider";
 import MobileDrawer from "./mobile-drawer";
 import menuItems from "./header.data";
+import Link from "next/link";
 
 export default function Header({ className }) {
   return (
     <DrawerProvider>
       <header sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
-          <Text sx={styles.brand}>PARACHUTES</Text>
+          <Link href="/">
+            <Text sx={styles.brand}>PARACHUTES</Text>
+          </Link>
           <Button sx={styles.btn} variant="primary" aria-label="Get Started">
-            Connect Wallet
+            Launch App
           </Button>
 
           {/* <MobileDrawer /> */}
@@ -89,6 +91,7 @@ const styles = {
     color: "#000",
     textAlign: "center",
     letterSpacing: "6px",
+    cursor: "pointer",
   },
   btn: {
     color: "primary",
