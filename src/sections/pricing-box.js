@@ -8,7 +8,7 @@ import {
   Label,
   Image,
 } from "theme-ui";
-import Vector from "assets/pricing/vector.png";
+import Vector from "assets/pricing/Vector.png";
 
 export default function PricingBox({
   src,
