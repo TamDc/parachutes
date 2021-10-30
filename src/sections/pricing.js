@@ -69,31 +69,12 @@ export default function Pricing() {
         <Flex sx={{ flexDirection: "column" }}>
           <Flex sx={{ flexDirection: ["row"] }}>
             <Box sx={{ flex: 1, textAlign: "center" }}>
-              <Button
-                variant="whiteButton"
-                sx={{
-                  width: "197.7px",
-                  border: "1px solid #8C30F5",
-                  height: "46px",
-                  fontFamily: "Inter",
-                  fontSize: ["14px", "16px", "14px"],
-                  color: "#8C30F5",
-                }}
-              >
+              <Link href="/swap" sx={styles.linkWhite}>
                 Trade
-              </Button>
-              <Button
-                variant="primary"
-                sx={{
-                  height: "46px",
-                  width: "197.7px",
-                  fontFamily: "Inter",
-                  fontSize: ["14px", "16px", "14px"],
-                  marginLeft: "-18px",
-                }}
-              >
+              </Link>
+              <Link href="/pricing" sx={styles.linkPrimary}>
                 Pack a Parachute
-              </Button>
+              </Link>
             </Box>
           </Flex>
 
@@ -168,6 +149,33 @@ export default function Pricing() {
 }
 
 const styles = {
+  linkPrimary: {
+    padding: "20px",
+    backgroundColor: "#8C30F5",
+    border: "1px solid #8C30F5",
+    color: "#ffffff",
+    padding: "14px 40px",
+    borderRadius: "6px",
+    zIndex: 99,
+    position: "relative",
+    textDecoration: "none",
+    fontFamily: "Inter",
+    fontSize: ["14px", "16px", "14px"],
+    marginLeft: "-18px",
+  },
+  linkWhite: {
+    padding: "20px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #8C30F5",
+    color: "#8C30F5",
+    padding: "14px 80px",
+    borderRadius: "6px",
+    zIndex: 1,
+    position: "relative",
+    textDecoration: "none",
+    fontFamily: "Inter",
+    fontSize: ["14px", "16px", "14px"],
+  },
   buttons: {
     primary: {
       color: "background",
@@ -247,7 +255,7 @@ const styles = {
   rectagle: {
     position: "absolute",
     left: "calc(50% - 24px/2 + 97px)",
-    top: "202.8px",
+    top: "174.8px",
     width: "24px",
     height: "14.8px",
     background: "#F1E4FF",

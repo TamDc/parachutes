@@ -1,9 +1,10 @@
 import { Link } from "@theme-ui/components";
 import { Container, Flex, Box, Text, Button, Grid, Image } from "theme-ui";
-import PricingBox from "sections/pricing-box";
-import Arrow from "assets/pricing/arrowbottom.png";
+import SwapBox from "sections/swap-box";
+import SwapBoxReceive from "sections/swap-box-receive";
 import banana from "assets/pricing/banana.png";
 import eth from "assets/pricing/eth.png";
+import Vector from "assets/swap/Vector.png";
 
 const data = [
   {
@@ -69,31 +70,12 @@ export default function Swap() {
         <Flex sx={{ flexDirection: "column" }}>
           <Flex sx={{ flexDirection: ["row"] }}>
             <Box sx={{ flex: 1, textAlign: "center" }}>
-              <Button
-                variant="primary"
-                sx={{
-                  width: "197.7px",
-                  height: "46px",
-                  fontFamily: "Inter",
-                  fontSize: ["14px", "16px", "14px"],
-                  marginLeft: "-18px",
-                }}
-              >
+              <Link href="/swap" sx={styles.linkPrimary}>
                 Trade
-              </Button>
-              <Button
-                variant="whiteButton"
-                sx={{
-                  height: "46px",
-                  width: "197.7px",
-                  fontFamily: "Inter",
-                  fontSize: ["14px", "16px", "14px"],
-                  color: "#8C30F5",
-                  border: "1px solid #8C30F5",
-                }}
-              >
+              </Link>
+              <Link href="/pricing" sx={styles.linkWhite}>
                 Pack a Parachute
-              </Button>
+              </Link>
             </Box>
           </Flex>
 
@@ -106,57 +88,22 @@ export default function Swap() {
             <Box id="rectagle" sx={styles.rectagle}></Box>
             <Box id="boxWrapper" sx={styles.boxWrapper}>
               <Box sx={styles.boxWrapper.wrapperTop}>
-                <Box sx={styles.boxWrapper.wrapperTop.rectagle2}></Box>
-                <Text sx={styles.boxWrapper.wrapperTop.rectagleText}>
-                  Deposited Vaults
-                </Text>
-                <Text sx={styles.boxWrapper.wrapperTop.headline}>
-                  Pack a Parachute
-                </Text>
-                <Text sx={styles.boxWrapper.wrapperTop.headlineText}>
-                  Platform: &nbsp;
-                  <Link
-                    sx={{
-                      textDecorationLine: "underline",
-                      color: "#18191F",
-                    }}
-                    href="/"
-                  >
-                    ApeSwap
-                  </Link>
-                  &nbsp;
-                  <Link>
-                    <Image src={Arrow}></Image>
-                  </Link>
-                </Text>
+                <Text sx={styles.boxWrapper.wrapperTop.headline}>Trade</Text>
               </Box>
-              <Grid
-                id="grid-pricing"
-                gap={6}
-                sx={styles.grid}
-                width={[128, null, 192]}
-              >
-                {data.map((item) => (
-                  <PricingBox
-                    key={item.id}
-                    src={item.icon}
-                    subtitle={item.subtitle}
-                    title={item.title}
-                    price={item.price}
-                    option={item.option}
-                    expired={item.expired}
-                  />
-                ))}
-              </Grid>
+              <Box sx={styles.boxWrapper.wrapperBottom}>
+                <SwapBox />
+                <SwapBoxReceive />
+              </Box>
               <Box
                 sx={{
-                  marginTop: [50, 50, 70],
+                  marginTop: [20, 20, 20],
                   marginBottom: [30, 30, 30],
                   textAlign: "center",
                 }}
               >
                 <Button sx={styles.moreBtn} bg="primary">
-                  See More
+                  Preview Trade &nbsp;
+                  <Image src={Vector}></Image>
                 </Button>
               </Box>
             </Box>
@@ -168,6 +115,33 @@ export default function Swap() {
 }
 
 const styles = {
+  linkPrimary: {
+    padding: "20px",
+    backgroundColor: "#8C30F5",
+    border: "1px solid #8C30F5",
+    color: "#ffffff",
+    padding: "14px 80px",
+    borderRadius: "6px",
+    zIndex: 99,
+    position: "relative",
+    textDecoration: "none",
+    fontFamily: "Inter",
+    fontSize: ["14px", "16px", "14px"],
+  },
+  linkWhite: {
+    padding: "20px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #8C30F5",
+    color: "#8C30F5",
+    padding: "14px 44px",
+    borderRadius: "6px",
+    zIndex: 1,
+    position: "relative",
+    marginLeft: "-18px",
+    textDecoration: "none",
+    fontFamily: "Inter",
+    fontSize: ["14px", "16px", "14px"],
+  },
   buttons: {
     primary: {
       color: "background",
@@ -193,31 +167,9 @@ const styles = {
     margin: "auto",
     wrapperTop: {
       position: "relative",
-      height: "120px",
       margin: "auto",
       width: "715px",
-      rectagle2: {
-        width: "10px",
-        height: "10px",
-        border: "1px solid #000000",
-        boxSizing: "border-box",
-        right: "123px",
-        top: "31px",
-        position: "absolute",
-      },
-      rectagleText: {
-        fontFamily: "Inter",
-        fontStyle: "normal",
-        fontWeight: "normal",
-        fontSize: "14px",
-        lineHeight: "20px",
-        textAlign: "center",
-        fontFeatureSettings: "'salt' on, 'liga' off",
-        color: "#000000",
-        right: 0,
-        top: "26px",
-        position: "absolute",
-      },
+      padding: "40px 0",
       headline: {
         fontFamily: "Inter",
         fontStyle: "normal",
@@ -228,26 +180,17 @@ const styles = {
         fontFeatureSettings: "'salt' on, 'liga' off",
         /* Text / Gray 900 */
         color: "#18191F",
-        position: "absolute",
-        top: "34px",
-        left: 0,
       },
-      headlineText: {
-        position: "absolute",
-        right: "0",
-        top: "64px",
-        fontFamily: "Inter",
-        fontStyle: "normal",
-        fontWeight: 500,
-        fontSize: "14px",
-        lineHeight: "20px",
-      },
+    },
+    wrapperBottom: {
+      margin: "auto",
+      width: "715px",
     },
   },
   rectagle: {
     position: "absolute",
-    left: "calc(50% - 24px/2 + 97px)",
-    top: "202.8px",
+    left: "calc(50% - 24px/2 - 101px)",
+    top: "174.8px",
     width: "24px",
     height: "14.8px",
     background: "#F1E4FF",
@@ -261,6 +204,7 @@ const styles = {
     fontFamily: "Inter",
     fontStyle: "normal",
     fontWeight: "normal",
-    fontSize: ["14px", "16px", "18px"],
+    fontSize: ["14px", "16px", "24px"],
+    padding: 0,
   },
 };
