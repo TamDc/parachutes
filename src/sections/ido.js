@@ -68,7 +68,7 @@ export default function IDO() {
               <Link href="#" sx={styles.link}>
                 Overview →
               </Link>
-              <Link href="#" sx={styles.link}>
+              <Link href="/pricing" sx={styles.link}>
                 Buy Parachutes →
               </Link>
             </Box>
