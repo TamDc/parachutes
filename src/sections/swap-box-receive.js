@@ -1,17 +1,7 @@
-import {
-  Grid,
-  Box,
-  Text,
-  Avatar,
-  Flex,
-  Radio,
-  Label,
-  Image,
-  Input,
-} from "theme-ui";
-import Send from "assets/swap/Send.png";
+import { Grid, Box, Text, Avatar, Flex, Image } from "theme-ui";
 import Arrow from "assets/swap/ArrowBottom.png";
 import Eth from "assets/swap/Eth.png";
+import Modal from "./swap-modal";
 
 export default function SwapBoxReceive({
   src,
@@ -25,6 +15,7 @@ export default function SwapBoxReceive({
   if (src) {
     imgTag = <Avatar src={src} />;
   }
+  const [showModal, setShowModal] = React.useState(false);
   return (
     <section>
       <Box id="box-swap" sx={styles.boxSwap} bg="white">
@@ -42,7 +33,10 @@ export default function SwapBoxReceive({
                 padding: "12px 0",
               }}
             >
-              <Flex>
+              <Flex
+                onClick={() => setShowModal(true)}
+                sx={styles.boxSwap.content.flex}
+              >
                 <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
                   <Image src={Eth}></Image>
                 </Box>
@@ -61,6 +55,13 @@ export default function SwapBoxReceive({
           </Flex>
         </Box>
       </Box>
+      <Modal
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        title="Select a Token"
+      >
+        Hello from the modal!
+      </Modal>
     </section>
   );
 }
@@ -95,6 +96,16 @@ const styles = {
         position: "absolute",
         bottom: "8px",
         right: "8px",
+      },
+      flex: {
+        "&:focus": {
+          opacity: 0.5,
+          cursor: "pointer",
+        },
+        "&:hover": {
+          opacity: 0.5,
+          cursor: "pointer",
+        },
       },
     },
     header: {

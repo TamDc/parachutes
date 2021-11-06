@@ -217,8 +217,8 @@ export default {
   },
   images: {
     avatar: {
-      width: 48,
-      height: 48,
+      width: 30,
+      height: 30,
       borderRadius: 99999,
     },
   },
