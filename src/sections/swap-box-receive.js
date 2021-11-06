@@ -2,20 +2,116 @@ import { Grid, Box, Text, Avatar, Flex, Image } from "theme-ui";
 import Arrow from "assets/swap/ArrowBottom.png";
 import Eth from "assets/swap/Eth.png";
 import Modal from "./swap-modal";
+import banana from "assets/pricing/banana.png";
+import eth from "assets/pricing/eth.png";
 
-export default function SwapBoxReceive({
-  src,
-  title,
-  subtitle,
-  option = "above",
-  price,
-  expired,
-}) {
-  let imgTag;
-  if (src) {
-    imgTag = <Avatar src={src} />;
-  }
+const tokenList = [
+  {
+    id: 1,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 2,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 3,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 4,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 14,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 5,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 6,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 7,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 8,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 9,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 10,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 11,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 12,
+    icon: banana,
+    title: "Alpaca",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 13,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+];
+
+export default function SwapBoxReceive() {
   const [showModal, setShowModal] = React.useState(false);
+  const [selectedToken, setSelectedToken] = React.useState("");
+  const foundToken = tokenList.find((e) => e.id == selectedToken)
+    ? tokenList.find((e) => e.id == selectedToken)
+    : null;
   return (
     <section>
       <Box id="box-swap" sx={styles.boxSwap} bg="white">
@@ -33,20 +129,43 @@ export default function SwapBoxReceive({
                 padding: "12px 0",
               }}
             >
-              <Flex
-                onClick={() => setShowModal(true)}
-                sx={styles.boxSwap.content.flex}
-              >
-                <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
-                  <Image src={Eth}></Image>
-                </Box>
-                <Box sx={{ flex: "0 0 6em" }}>
-                  <Text sx={styles.boxSwap.content.col}>&nbsp;ParaEthAbv</Text>
-                </Box>
-                <Box p={2} sx={{ flex: "1", textAlign: "right" }}>
-                  <Image src={Arrow}></Image>
-                </Box>
-              </Flex>
+              {foundToken ? (
+                <Flex
+                  onClick={() => setShowModal(true)}
+                  sx={styles.boxSwap.content.flex}
+                >
+                  <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
+                    <Image src={foundToken.icon}></Image>
+                  </Box>
+                  <Box sx={{ flex: "0 0 6em" }}>
+                    <Text sx={styles.boxSwap.content.col}>
+                      &nbsp;{foundToken.title}
+                    </Text>
+                  </Box>
+                  <Box p={2} sx={{ flex: "1", textAlign: "right" }}>
+                    <Image src={Arrow}></Image>
+                  </Box>
+                </Flex>
+              ) : (
+                <Flex
+                  onClick={() => setShowModal(true)}
+                  sx={styles.boxSwap.content.flex}
+                >
+                  <Box
+                    p={2}
+                    sx={{
+                      textAlign: "right",
+                      fontFamily: "Inter",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Select a currency
+                  </Box>
+                  <Box p={2} sx={{ flex: "1 1 auto", textAlign: "right" }}>
+                    <Image src={Arrow}></Image>
+                  </Box>
+                </Flex>
+              )}
             </Box>
             <Box p={2} sx={{ flex: "1", paddingTop: "16px" }}></Box>
             <Box p={2} sx={{ flex: "0 0 150px", position: "relative" }}>
@@ -59,6 +178,9 @@ export default function SwapBoxReceive({
         onClose={() => setShowModal(false)}
         show={showModal}
         title="Select a Token"
+        selectedToken={selectedToken}
+        tokenList={tokenList}
+        selectToken={(id) => setSelectedToken(id)}
       >
         Hello from the modal!
       </Modal>

@@ -115,7 +115,6 @@ const styles = {
       fontWeight: "bold",
       mb: ["3px", null, null, null, null, "3px"],
       fontFamily: "Inter",
-      textTransform: "uppercase",
     },
 
     subTitle: {

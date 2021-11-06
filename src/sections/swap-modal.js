@@ -1,114 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { Flex, Box, Close, Input, Divider, Avatar } from "theme-ui";
-import banana from "assets/pricing/banana.png";
-import eth from "assets/pricing/eth.png";
+import { Flex, Box, Close, Input, Divider, Avatar, Message } from "theme-ui";
 
-const tokenList = [
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-  {
-    id: 1,
-    icon: banana,
-    title: "Alpaca",
-    subtitle: "Alpaca",
-    amount: 0.3214,
-  },
-  {
-    id: 2,
-    icon: eth,
-    title: "USDT",
-    subtitle: "Tether USD",
-    amount: 0,
-  },
-];
-
-const Modal = ({ show, onClose, children: [], title }) => {
+const Modal = ({
+  show,
+  onClose,
+  children,
+  title,
+  selectedToken,
+  tokenList = [],
+  selectToken,
+}) => {
   const [isBrowser, setIsBrowser] = useState(false);
-
+  const [filterText, setFilter] = useState("");
   useEffect(() => {
     setIsBrowser(true);
   }, []);
@@ -117,6 +22,23 @@ const Modal = ({ show, onClose, children: [], title }) => {
     e.preventDefault();
     onClose();
   };
+
+  const changeToken = (id, e) => {
+    e.preventDefault();
+    selectToken(id);
+    onClose();
+  };
+
+  const filterTokens = (e) => {
+    setFilter(e.target.value);
+  };
+  const filtered = React.useMemo(() => {
+    return tokenList.filter((token) => {
+      return filterText.length > 0
+        ? token.title.toLowerCase().includes(filterText.toLowerCase())
+        : true;
+    });
+  }, [filterText, tokenList]);
 
   const modalContent = show ? (
     <StyledModalOverlay>
@@ -132,29 +54,43 @@ const Modal = ({ show, onClose, children: [], title }) => {
         <Divider />
         <StyledModalBody>
           <Box id="searchBox" sx={styles.searchBox}>
-            <Input placeholder="Search name or paste address" />
+            <Input
+              placeholder="Search name or paste address"
+              onChange={filterTokens}
+              defaultValue={filterText}
+            />
           </Box>
           <Box id="tokenList" sx={styles.tokenList}>
-            {tokenList.map((item) => (
-              <Box key={item.id} sx={styles.tokenList.tokenItem}>
-                <Flex>
-                  <Box sx={{ flex: "1 1 auto" }}>
-                    <Flex>
-                      <Box p={2} sx={styles.tokenList.avatar}>
-                        <Avatar src={item.icon} />
-                      </Box>
-                      <Box p={2} sx={styles.tokenList.name}>
-                        <Box sx={styles.tokenList.name.main}>{item.title}</Box>
-                        <Box sx={styles.tokenList.name.sub}>
-                          {item.subtitle}
+            {filtered && filtered.length > 0 ? (
+              filtered.map((item) => (
+                <Box
+                  key={item.id}
+                  sx={styles.tokenList.tokenItem}
+                  className={`${selectedToken == item.id ? "active" : ""}`}
+                >
+                  <Flex onClick={(e) => changeToken(item.id, e)}>
+                    <Box sx={{ flex: "1 1 auto" }}>
+                      <Flex>
+                        <Box p={2} sx={styles.tokenList.avatar}>
+                          <Avatar src={item.icon} />
                         </Box>
-                      </Box>
-                    </Flex>
-                  </Box>
-                  <Box sx={styles.tokenList.amount}>{item.amount}</Box>
-                </Flex>
-              </Box>
-            ))}
+                        <Box p={2} sx={styles.tokenList.name}>
+                          <Box sx={styles.tokenList.name.main}>
+                            {item.title}
+                          </Box>
+                          <Box sx={styles.tokenList.name.sub}>
+                            {item.subtitle}
+                          </Box>
+                        </Box>
+                      </Flex>
+                    </Box>
+                    <Box sx={styles.tokenList.amount}>{item.amount}</Box>
+                  </Flex>
+                </Box>
+              ))
+            ) : (
+              <Message sx={styles.tokenList.message}>No results found.</Message>
+            )}
           </Box>
         </StyledModalBody>
       </StyledModal>
@@ -232,6 +168,11 @@ const styles = {
       },
       paddingLeft: "13px",
       paddingRight: "13px",
+      "&.active": {
+        backgroundColor: "rgb(250, 249, 250)",
+        opacity: 0.5,
+        pointerEvents: "none",
+      },
     },
     name: {
       flex: "1 1 auto",
@@ -241,7 +182,6 @@ const styles = {
         fontStyle: "normal",
         fontSize: "16px",
         paddingBottom: "5px",
-        textTransform: "uppercase",
       },
       sub: {
         color: "#A6A6A6",
@@ -256,6 +196,12 @@ const styles = {
       fontFamily: "Inter",
       fontStyle: "normal",
       fontSize: "16px",
+    },
+    message: {
+      fontFamily: "Inter",
+      fontStyle: "normal",
+      fontSize: "18px",
+      margin: "20px",
     },
   },
 };
