@@ -1,9 +1,10 @@
 import { Link } from "@theme-ui/components";
 import { Container, Flex, Box, Text, Button, Grid, Image } from "theme-ui";
-import PricingBox from "sections/pricing-box";
+import PricingBox from "components/pricing-box";
 import Arrow from "assets/pricing/arrowbottom.png";
 import banana from "assets/pricing/banana.png";
 import eth from "assets/pricing/eth.png";
+import rectangle168 from "assets/pricing/Rectangle_168.png";
 
 const data = [
   {
@@ -80,42 +81,53 @@ export default function Pricing() {
 
           <Flex
             sx={{
-              marginTop: 50,
+              margin: ["50px 0", "50px 0", "50px 0 0 0"],
               flexDirection: ["row"],
             }}
           >
             <Box id="rectagle" sx={styles.rectagle}></Box>
-            <Box id="boxWrapper" sx={styles.boxWrapper}>
-              <Box sx={styles.boxWrapper.wrapperTop}>
-                <Box sx={styles.boxWrapper.wrapperTop.rectagle2}></Box>
-                <Text sx={styles.boxWrapper.wrapperTop.rectagleText}>
-                  Deposited Vaults
-                </Text>
-                <Text sx={styles.boxWrapper.wrapperTop.headline}>
-                  Pack a Parachute
-                </Text>
-                <Text sx={styles.boxWrapper.wrapperTop.headlineText}>
-                  Platform: &nbsp;
-                  <Link
-                    sx={{
-                      textDecorationLine: "underline",
-                      color: "#18191F",
-                    }}
-                    href="/"
-                  >
-                    ApeSwap
-                  </Link>
-                  &nbsp;
-                  <Link>
-                    <Image src={Arrow}></Image>
-                  </Link>
-                </Text>
+            <Box
+              id="box-wrapper"
+              sx={styles.boxWrapper}
+              p={[4, 10, 30, 30, 50]}
+            >
+              <Box id="box-wrapper-top" sx={styles.boxWrapper.wrapperTop}>
+                <Grid columns={[1, 2, 2]}>
+                  <Box>
+                    <Text sx={styles.boxWrapper.wrapperTop.headline}>
+                      Pack a Parachute
+                    </Text>
+                  </Box>
+                  <Box sx={{ textAlign: "right" }}>
+                    <Text sx={styles.boxWrapper.wrapperTop.rectagleText}>
+                      <Image src={rectangle168}></Image>
+                      &nbsp; Deposited Vaults
+                    </Text>
+
+                    <Text sx={styles.boxWrapper.wrapperTop.headlineText}>
+                      Platform: &nbsp;
+                      <Link
+                        sx={{
+                          textDecorationLine: "underline",
+                          color: "#18191F",
+                        }}
+                        href="/"
+                      >
+                        ApeSwap
+                      </Link>
+                      &nbsp;
+                      <Link>
+                        <Image src={Arrow}></Image>
+                      </Link>
+                    </Text>
+                  </Box>
+                </Grid>
               </Box>
               <Grid
                 id="grid-pricing"
-                gap={6}
+                gap={[1, 1, 1, 2, 6]}
                 sx={styles.grid}
-                width={[128, null, 192]}
+                columns={[1, 2, 2, 3]}
               >
                 {data.map((item) => (
                   <PricingBox
@@ -132,7 +144,6 @@ export default function Pricing() {
               <Box
                 sx={{
                   marginTop: [50, 50, 70],
-                  marginBottom: [30, 30, 30],
                   textAlign: "center",
                 }}
               >
@@ -154,7 +165,7 @@ const styles = {
     backgroundColor: "#8C30F5",
     border: "1px solid #8C30F5",
     color: "#ffffff",
-    padding: "14px 40px",
+    padding: ["14px 25px", "14px 25px", "14px 25px", "14px 40px"],
     borderRadius: "6px",
     zIndex: 99,
     position: "relative",
@@ -168,7 +179,7 @@ const styles = {
     backgroundColor: "#ffffff",
     border: "1px solid #8C30F5",
     color: "#8C30F5",
-    padding: "14px 80px",
+    padding: ["14px 60px", "14px 60px", "14px 60px", "14px 80px"],
     borderRadius: "6px",
     zIndex: 1,
     position: "relative",
@@ -201,30 +212,17 @@ const styles = {
     margin: "auto",
     wrapperTop: {
       position: "relative",
-      height: "120px",
       margin: "auto",
-      width: "715px",
-      rectagle2: {
-        width: "10px",
-        height: "10px",
-        border: "1px solid #000000",
-        boxSizing: "border-box",
-        right: "123px",
-        top: "31px",
-        position: "absolute",
-      },
+      paddingBottom: "40px",
       rectagleText: {
         fontFamily: "Inter",
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "14px",
         lineHeight: "20px",
-        textAlign: "center",
         fontFeatureSettings: "'salt' on, 'liga' off",
         color: "#000000",
-        right: 0,
-        top: "26px",
-        position: "absolute",
+        marginBottom: "20px",
       },
       headline: {
         fontFamily: "Inter",
@@ -236,14 +234,8 @@ const styles = {
         fontFeatureSettings: "'salt' on, 'liga' off",
         /* Text / Gray 900 */
         color: "#18191F",
-        position: "absolute",
-        top: "34px",
-        left: 0,
       },
       headlineText: {
-        position: "absolute",
-        right: "0",
-        top: "64px",
         fontFamily: "Inter",
         fontStyle: "normal",
         fontWeight: 500,
@@ -262,8 +254,10 @@ const styles = {
     clipPath: "polygon(50% 0%, 0 100%, 100% 100%)",
   },
   grid: {
-    width: ["715px", "715px", "715px"],
     mx: "auto",
+    "@media screen and (max-width:414px)": {
+      width: "205px",
+    },
   },
   moreBtn: {
     fontFamily: "Inter",

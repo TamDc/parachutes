@@ -26,7 +26,14 @@ export default function PricingBox({
     <section>
       <Box id="box-pricing" sx={styles.boxPricing} bg="white">
         <Flex sx={styles.boxPricing.flex}>
-          <Box p={2} sx={{ borderRadius: "6px 0 0 0", minWidth: "68px" }}>
+          <Box
+            p={2}
+            sx={{
+              borderRadius: "6px 0 0 0",
+              minWidth: "68px",
+              textAlign: "right",
+            }}
+          >
             {imgTag}
           </Box>
           <Box p={2} sx={{ flex: "1 1 auto", borderRadius: "0 6px 0 0" }}>
@@ -90,17 +97,12 @@ export default function PricingBox({
 
 const styles = {
   boxPricing: {
-    borderRadius: [15, null, 23, null, null, "6px"],
+    borderRadius: "6px",
     position: "relative",
     marginTop: "20px",
+    width: ["205px", "205px", "205px", "205px", "218px"],
     flex: {
       minHeight: "114px",
-    },
-  },
-  images: {
-    avatar: {
-      width: 35,
-      height: 35,
     },
   },
   iconWrapper: {

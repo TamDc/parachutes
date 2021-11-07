@@ -1,9 +1,19 @@
-import { Grid, Box, Text, Avatar, Flex, Image } from "theme-ui";
+import {
+  Grid,
+  Box,
+  Text,
+  Avatar,
+  Flex,
+  Radio,
+  Label,
+  Image,
+  Input,
+} from "theme-ui";
 import Arrow from "assets/swap/ArrowBottom.png";
-import Eth from "assets/swap/Eth.png";
-import Modal from "./swap-modal";
 import banana from "assets/pricing/banana.png";
 import eth from "assets/pricing/eth.png";
+
+import Modal from "./swap-modal";
 
 const tokenList = [
   {
@@ -105,73 +115,89 @@ const tokenList = [
     amount: 0,
   },
 ];
+const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
 
-export default function SwapBoxReceive() {
+export default function SwapBox({ option = "above" }) {
   const [showModal, setShowModal] = React.useState(false);
-  const [selectedToken, setSelectedToken] = React.useState("");
+  const [selectedToken, setSelectedToken] = React.useState(1);
+  const [amount, setAmount] = React.useState("");
+
   const foundToken = tokenList.find((e) => e.id == selectedToken)
     ? tokenList.find((e) => e.id == selectedToken)
-    : null;
+    : {};
+  const changeAmount = (e) => {
+    if (rx_live.test(e.target.value)) {
+      setAmount(e.target.value);
+    }
+  };
+
   return (
     <section>
       <Box id="box-swap" sx={styles.boxSwap} bg="white">
         <Box sx={styles.boxSwap.header}>
-          <Box>
-            <Text sx={styles.boxSwap.header.left}>Receive</Text>
-          </Box>
+          <Grid gap={[2, 10, 10]} columns={[null, null, 2]}>
+            <Box>
+              <Text sx={styles.boxSwap.header.left}>Send</Text>
+            </Box>
+            <Box sx={styles.boxSwap.header.right}>
+              <Flex>
+                <Label sx={styles.boxSwap.header.right.label1}>
+                  <Radio
+                    name="arrow"
+                    value="above"
+                    defaultChecked={option === "above"}
+                  />
+                  Token
+                </Label>
+                <Label sx={styles.boxSwap.header.right.label2}>
+                  <Radio
+                    name="arrow"
+                    value="below"
+                    defaultChecked={option === "below"}
+                  />
+                  Parachute
+                </Label>
+              </Flex>
+            </Box>
+          </Grid>
         </Box>
         <Box id="boxSwapContent" sx={styles.boxSwap.content}>
-          <Flex>
+          <Grid columns={[null, null, 3]} gap={[null, null, 2]}>
             <Box
               sx={{
-                flex: "0 0 13em",
                 borderRight: "1px solid #F1E4FF",
-                padding: "12px 0",
+                padding: ["12px 0 0 0", "12px 0 0 0", "12px 0"],
               }}
             >
-              {foundToken ? (
-                <Flex
-                  onClick={() => setShowModal(true)}
-                  sx={styles.boxSwap.content.flex}
-                >
-                  <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
-                    <Image src={foundToken.icon}></Image>
-                  </Box>
-                  <Box sx={{ flex: "0 0 6em" }}>
-                    <Text sx={styles.boxSwap.content.col}>
-                      &nbsp;{foundToken.title}
-                    </Text>
-                  </Box>
-                  <Box p={2} sx={{ flex: "1", textAlign: "right" }}>
-                    <Image src={Arrow}></Image>
-                  </Box>
-                </Flex>
-              ) : (
-                <Flex
-                  onClick={() => setShowModal(true)}
-                  sx={styles.boxSwap.content.flex}
-                >
-                  <Box
-                    p={2}
-                    sx={{
-                      textAlign: "right",
-                      fontFamily: "Inter",
-                      fontSize: "18px",
-                    }}
-                  >
-                    Select a currency
-                  </Box>
-                  <Box p={2} sx={{ flex: "1 1 auto", textAlign: "right" }}>
-                    <Image src={Arrow}></Image>
-                  </Box>
-                </Flex>
-              )}
+              <Flex
+                sx={styles.boxSwap.content.flex}
+                onClick={() => setShowModal(true)}
+              >
+                <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
+                  <Image src={foundToken.icon}></Image>
+                </Box>
+                <Box sx={{ flex: "0 0 6em" }}>
+                  <Text sx={styles.boxSwap.content.col}>
+                    &nbsp;{foundToken.title}
+                  </Text>
+                </Box>
+                <Box p={2} sx={{ flex: "1", textAlign: "right" }}>
+                  <Image src={Arrow}></Image>
+                </Box>
+              </Flex>
             </Box>
-            <Box p={2} sx={{ flex: "1", paddingTop: "16px" }}></Box>
-            <Box p={2} sx={{ flex: "0 0 150px", position: "relative" }}>
-              <Text sx={styles.boxSwap.content.col3}>Price impact: ___%</Text>
+            <Box p={2} sx={{ paddingTop: "16px" }}>
+              <Input
+                sx={styles.boxSwap.content.col2}
+                placeholder="Enter Amount"
+                onChange={changeAmount}
+                value={amount}
+              />
             </Box>
-          </Flex>
+            <Box p={2} sx={{ position: "relative" }}>
+              <Text sx={styles.boxSwap.content.col3}>Balance: ____</Text>
+            </Box>
+          </Grid>
         </Box>
       </Box>
       <Modal
@@ -190,9 +216,8 @@ export default function SwapBoxReceive() {
 
 const styles = {
   boxSwap: {
-    borderRadius: [15, null, 23, null, null, "6px"],
+    borderRadius: ["6px", null, "6px", null, null, "6px"],
     position: "relative",
-    marginTop: "20px",
     content: {
       padding: 0,
       col: {
@@ -210,6 +235,10 @@ const styles = {
         height: "30px",
         borderRadius: 0,
         border: 0,
+        "&:focus": {
+          border: "none",
+          boxShadow: "none",
+        },
       },
       col3: {
         color: "#A6A6A6",
@@ -242,12 +271,13 @@ const styles = {
       right: {
         textAlign: "right",
         label1: {
-          flex: "1 1 auto",
+          flex: ["0 1 58%", "0 1 58%", "1 1 auto"],
           fontFamily: "Inter",
           fontStyle: "normal",
           fontWeight: "normal",
           fontSize: "18px",
           textAlign: "center",
+          marginRight: "8px",
         },
         label2: {
           fontFamily: "Inter",
