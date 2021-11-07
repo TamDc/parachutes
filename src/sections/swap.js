@@ -1,7 +1,7 @@
 import { Link } from "@theme-ui/components";
 import { Container, Flex, Box, Text, Button, Grid, Image } from "theme-ui";
-import SwapBox from "sections/swap-box";
-import SwapBoxReceive from "sections/swap-box-receive";
+import SwapBox from "components/swap-box";
+import SwapBoxReceive from "components/swap-box-receive";
 import banana from "assets/pricing/banana.png";
 import eth from "assets/pricing/eth.png";
 import Vector from "assets/swap/Vector.png";
@@ -81,12 +81,12 @@ export default function Swap() {
 
           <Flex
             sx={{
-              marginTop: 50,
+              margin: ["50px 0", "50px 0", "50px 0 0 0"],
               flexDirection: ["row"],
             }}
           >
             <Box id="rectagle" sx={styles.rectagle}></Box>
-            <Box id="boxWrapper" sx={styles.boxWrapper}>
+            <Box id="boxWrapper" sx={styles.boxWrapper} p={[4, 10, 50]}>
               <Box sx={styles.boxWrapper.wrapperTop}>
                 <Text sx={styles.boxWrapper.wrapperTop.headline}>Trade</Text>
               </Box>
@@ -97,7 +97,6 @@ export default function Swap() {
               <Box
                 sx={{
                   marginTop: [20, 20, 20],
-                  marginBottom: [30, 30, 30],
                   textAlign: "center",
                 }}
               >
@@ -120,7 +119,7 @@ const styles = {
     backgroundColor: "#8C30F5",
     border: "1px solid #8C30F5",
     color: "#ffffff",
-    padding: "14px 80px",
+    padding: ["14px 60px", "14px 60px", "14px 60px", "14px 80px"],
     borderRadius: "6px",
     zIndex: 99,
     position: "relative",
@@ -133,7 +132,7 @@ const styles = {
     backgroundColor: "#ffffff",
     border: "1px solid #8C30F5",
     color: "#8C30F5",
-    padding: "14px 44px",
+    padding: ["14px 25px", "14px 25px", "14px 25px", "14px 44px"],
     borderRadius: "6px",
     zIndex: 1,
     position: "relative",
@@ -168,8 +167,7 @@ const styles = {
     wrapperTop: {
       position: "relative",
       margin: "auto",
-      width: "715px",
-      padding: "40px 0",
+      paddingBottom: "40px",
       headline: {
         fontFamily: "Inter",
         fontStyle: "normal",
@@ -184,13 +182,12 @@ const styles = {
     },
     wrapperBottom: {
       margin: "auto",
-      width: "715px",
     },
   },
   rectagle: {
     position: "absolute",
     left: "calc(50% - 24px/2 - 101px)",
-    top: "174.8px",
+    top: ["174.8px", "190.8px", "174.8px"],
     width: "24px",
     height: "14.8px",
     background: "#F1E4FF",
@@ -205,6 +202,5 @@ const styles = {
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: ["14px", "16px", "24px"],
-    padding: 0,
   },
 };

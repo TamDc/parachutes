@@ -9,28 +9,133 @@ import {
   Image,
   Input,
 } from "theme-ui";
-import Send from "assets/swap/Send.png";
 import Arrow from "assets/swap/ArrowBottom.png";
+import banana from "assets/pricing/banana.png";
+import eth from "assets/pricing/eth.png";
 
 import Modal from "./swap-modal";
 
-export default function SwapBox({
-  src,
-  title,
-  subtitle,
-  option = "above",
-  price,
-  expired,
-}) {
-  if (src) {
-    imgTag = <Avatar src={src} />;
-  }
+const tokenList = [
+  {
+    id: 1,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 2,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 3,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 4,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 14,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 5,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 6,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 7,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 8,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 9,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 10,
+    icon: banana,
+    title: "ALPACA",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 11,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+  {
+    id: 12,
+    icon: banana,
+    title: "Alpaca",
+    subtitle: "Alpaca",
+    amount: 0.3214,
+  },
+  {
+    id: 13,
+    icon: eth,
+    title: "USDT",
+    subtitle: "Tether USD",
+    amount: 0,
+  },
+];
+const rx_live = /^[+-]?\d*(?:[.,]\d*)?$/;
+
+export default function SwapBox({ option = "above" }) {
   const [showModal, setShowModal] = React.useState(false);
+  const [selectedToken, setSelectedToken] = React.useState(1);
+  const [amount, setAmount] = React.useState("");
+
+  const foundToken = tokenList.find((e) => e.id == selectedToken)
+    ? tokenList.find((e) => e.id == selectedToken)
+    : {};
+  const changeAmount = (e) => {
+    if (rx_live.test(e.target.value)) {
+      setAmount(e.target.value);
+    }
+  };
+
   return (
     <section>
       <Box id="box-swap" sx={styles.boxSwap} bg="white">
         <Box sx={styles.boxSwap.header}>
-          <Grid gap={10} columns={[2, null, 2]}>
+          <Grid gap={[2, 10, 10]} columns={[null, null, 2]}>
             <Box>
               <Text sx={styles.boxSwap.header.left}>Send</Text>
             </Box>
@@ -57,12 +162,11 @@ export default function SwapBox({
           </Grid>
         </Box>
         <Box id="boxSwapContent" sx={styles.boxSwap.content}>
-          <Flex>
+          <Grid columns={[null, null, 3]} gap={[null, null, 2]}>
             <Box
               sx={{
-                flex: "0 0 13em",
                 borderRight: "1px solid #F1E4FF",
-                padding: "12px 0",
+                padding: ["12px 0 0 0", "12px 0 0 0", "12px 0"],
               }}
             >
               <Flex
@@ -70,32 +174,39 @@ export default function SwapBox({
                 onClick={() => setShowModal(true)}
               >
                 <Box sx={{ flex: "0 0 4em", textAlign: "right" }}>
-                  <Image src={Send}></Image>
+                  <Image src={foundToken.icon}></Image>
                 </Box>
                 <Box sx={{ flex: "0 0 6em" }}>
-                  <Text sx={styles.boxSwap.content.col}>&nbsp;USDT</Text>
+                  <Text sx={styles.boxSwap.content.col}>
+                    &nbsp;{foundToken.title}
+                  </Text>
                 </Box>
                 <Box p={2} sx={{ flex: "1", textAlign: "right" }}>
                   <Image src={Arrow}></Image>
                 </Box>
               </Flex>
             </Box>
-            <Box p={2} sx={{ flex: "1", paddingTop: "16px" }}>
+            <Box p={2} sx={{ paddingTop: "16px" }}>
               <Input
                 sx={styles.boxSwap.content.col2}
                 placeholder="Enter Amount"
+                onChange={changeAmount}
+                value={amount}
               />
             </Box>
-            <Box p={2} sx={{ flex: "0 0 150px", position: "relative" }}>
+            <Box p={2} sx={{ position: "relative" }}>
               <Text sx={styles.boxSwap.content.col3}>Balance: ____</Text>
             </Box>
-          </Flex>
+          </Grid>
         </Box>
       </Box>
       <Modal
         onClose={() => setShowModal(false)}
         show={showModal}
         title="Select a Token"
+        selectedToken={selectedToken}
+        tokenList={tokenList}
+        selectToken={(id) => setSelectedToken(id)}
       >
         Hello from the modal!
       </Modal>
@@ -105,7 +216,7 @@ export default function SwapBox({
 
 const styles = {
   boxSwap: {
-    borderRadius: [15, null, 23, null, null, "6px"],
+    borderRadius: ["6px", null, "6px", null, null, "6px"],
     position: "relative",
     content: {
       padding: 0,
@@ -124,6 +235,10 @@ const styles = {
         height: "30px",
         borderRadius: 0,
         border: 0,
+        "&:focus": {
+          border: "none",
+          boxShadow: "none",
+        },
       },
       col3: {
         color: "#A6A6A6",
@@ -156,12 +271,13 @@ const styles = {
       right: {
         textAlign: "right",
         label1: {
-          flex: "1 1 auto",
+          flex: ["0 1 58%", "0 1 58%", "1 1 auto"],
           fontFamily: "Inter",
           fontStyle: "normal",
           fontWeight: "normal",
           fontSize: "18px",
           textAlign: "center",
+          marginRight: "8px",
         },
         label2: {
           fontFamily: "Inter",
