@@ -1,10 +1,11 @@
-import { Link } from "@theme-ui/components";
+// import { Link } from "@theme-ui/components";
 import { Container, Flex, Box, Text, Button, Grid, Image } from "theme-ui";
 import PricingBox from "components/pricing-box";
 import Arrow from "assets/pricing/arrowbottom.png";
 import banana from "assets/pricing/banana.png";
 import eth from "assets/pricing/eth.png";
 import rectangle168 from "assets/pricing/Rectangle_168.png";
+import Link from "next/link";
 
 const data = [
   {
@@ -65,16 +66,16 @@ const data = [
 
 export default function Pricing() {
   return (
-    <section>
+    <section style={{ minHeight: "calc(100vh - 57px)" }}>
       <Container sx={styles.container}>
         <Flex sx={{ flexDirection: "column" }}>
           <Flex sx={{ flexDirection: ["row"] }}>
             <Box sx={{ flex: 1, textAlign: "center" }}>
-              <Link href="/swap" sx={styles.linkWhite}>
-                Trade
+              <Link href="/swap">
+                <Button sx={styles.linkWhite}>Trade</Button>
               </Link>
-              <Link href="/pricing" sx={styles.linkPrimary}>
-                Pack a Parachute
+              <Link href="/pricing">
+                <Button sx={styles.linkPrimary}>Pack a Parachute</Button>
               </Link>
             </Box>
           </Flex>
@@ -111,12 +112,12 @@ export default function Pricing() {
                           textDecorationLine: "underline",
                           color: "#18191F",
                         }}
-                        href="/"
+                        href="#"
                       >
                         ApeSwap
                       </Link>
                       &nbsp;
-                      <Link>
+                      <Link href="#">
                         <Image src={Arrow}></Image>
                       </Link>
                     </Text>

@@ -65,7 +65,7 @@ const data = [
 
 export default function Swap() {
   return (
-    <section>
+    <section style={{ minHeight: "calc(100vh - 57px)" }}>
       <Container sx={styles.container}>
         <Flex sx={{ flexDirection: "column" }}>
           <Flex sx={{ flexDirection: ["row"] }}>

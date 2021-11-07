@@ -117,8 +117,12 @@ export default function IDO() {
               <span>Percentage of tokens hedged</span>
             </Box>
             <Box sx={styles.table}>
-              <h1>Number of tokens to hedge _____</h1>
-              <p>Percentage price movement</p>
+              <Box sx={{ height: 50 }}>
+                <Text sx={styles.title}>Number of tokens to hedge _____</Text>
+              </Box>
+              <Box sx={{ height: 40 }}>
+                <Text sx={styles.subtitle}>Percentage price movement</Text>
+              </Box>
               <table>
                 <thead>
                   <tr>
@@ -238,7 +242,7 @@ const styles = {
       fontStyle: "italic",
       position: ["relative", "absolute", "absolute"],
       top: "30%",
-      width: "30%",
+      width: "35%",
       right: [0, "50px", "50px"],
       textAlign: "center",
     },
@@ -256,12 +260,30 @@ const styles = {
       borderCollapse: "collapse",
       height: "50px",
       width: "100px",
+      fontWeight: "600",
+      fontFamily: "Inter",
+      fontSize: 24,
     },
     "& td": {
       border: "1px solid #F1E4FF",
       borderCollapse: "collapse",
       height: "50px",
       textAlign: "center",
+      color: "#8C30F5",
+      fontWeight: "600",
+      fontFamily: "Inter",
+      fontSize: 24,
+      height: 96,
+      width: 140,
     },
+  },
+  title: {
+    fontFamily: "Inter",
+    fontSize: [20, null, 24],
+    fontWeight: 600,
+  },
+  subtitle: {
+    fontFamily: "Inter",
+    fontSize: [18, null, 20],
   },
 };

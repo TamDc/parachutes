@@ -10,7 +10,7 @@ class CustomDocument extends Document {
     return (
       <Html lang="en-US">
         <Head />
-        <body>
+        <body style={{ margin: 0 }}>
           <Main />
           <NextScript />
           {/*Below we add the modal wrapper*/}
